@@ -6,9 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.citizenme.socialmediaapp.R
 import com.citizenme.socialmediaapp.databinding.ItemCommentListBinding
-import com.citizenme.socialmediaapp.model.Comment
+import com.citizenme.socialmediaapp.model.CommentModel
 
-class CommentsAdapter(private val commentList : MutableList<Comment>) : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
+class CommentsAdapter(private val commentList : MutableList<CommentModel>) : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
 
     inner class CommentViewHolder(val binding: ItemCommentListBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -27,5 +27,11 @@ class CommentsAdapter(private val commentList : MutableList<Comment>) : Recycler
 
     override fun getItemCount(): Int {
         return commentList.size
+    }
+
+    fun updateCommentList(commentList: MutableList<CommentModel>){
+        this.commentList.clear()
+        this.commentList.addAll(commentList)
+        notifyDataSetChanged()
     }
 }

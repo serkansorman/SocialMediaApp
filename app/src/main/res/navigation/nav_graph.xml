@@ -20,7 +20,7 @@
         android:label="fragment_post_details"
         tools:layout="@layout/fragment_post_details" >
         <argument
-            android:name="post_uid"
-            app:argType="integer" />
+            android:name="post_details"
+            app:argType="com.citizenme.socialmediaapp.model.PostAndPhotoModel" />
     </fragment>
 </navigation>

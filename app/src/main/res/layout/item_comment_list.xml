@@ -5,14 +5,14 @@
 
         <variable
             name="commentModel"
-            type="com.citizenme.socialmediaapp.model.Comment" />
+            type="com.citizenme.socialmediaapp.model.CommentModel" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="15dp"
         android:layout_marginBottom="8dp">
 
         <LinearLayout
@@ -27,21 +27,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:text="@{commentModel.name}"
                 android:textStyle="bold"
                 android:textSize="16sp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 tools:text="Name" />
 
             <TextView
                 android:id="@+id/comment_body_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@{commentModel.body}"
-                tools:text="Body" />
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textSize="12sp" />
 
         </LinearLayout>
 

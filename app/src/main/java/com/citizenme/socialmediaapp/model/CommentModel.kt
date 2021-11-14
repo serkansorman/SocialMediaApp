@@ -1,6 +1,6 @@
 package com.citizenme.socialmediaapp.model
 
-data class Comment(
+data class CommentModel(
     val postId : Int,
     val commentId : Int,
     val name : String,

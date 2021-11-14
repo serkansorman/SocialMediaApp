@@ -1,8 +1,8 @@
 package com.citizenme.socialmediaapp.listener
 
-import com.citizenme.socialmediaapp.model.Post
+import com.citizenme.socialmediaapp.model.PostAndPhotoModel
 
 interface PostClickListener {
 
-    fun onPostClick(post : Post)
+    fun onPostClick(postAndPhotoModel: PostAndPhotoModel)
 }

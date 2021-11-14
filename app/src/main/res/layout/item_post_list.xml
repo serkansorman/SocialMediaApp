@@ -2,10 +2,10 @@
 <layout>
 
     <data>
-        <variable
-            name="postModel"
-            type="com.citizenme.socialmediaapp.model.Post" />
 
+        <variable
+            name="postAndPhotoModel"
+            type="com.citizenme.socialmediaapp.model.PostAndPhotoModel" />
         <variable
             name="postListener"
             type="com.citizenme.socialmediaapp.listener.PostClickListener" />
@@ -19,7 +19,7 @@
         android:layout_height="125dp"
         android:layout_marginBottom="8dp"
         app:cardCornerRadius="20dp"
-        android:onClick="@{() -> postListener.onPostClick(postModel)}">
+        android:onClick="@{() -> postListener.onPostClick(postAndPhotoModel)}">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,13 +27,15 @@
             android:orientation="horizontal">
 
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/post_thumbnail_iv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="12dp"
                 android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:scaleType="fitXY"
+                app:shapeAppearanceOverlay="@style/roundedImageView"
+                android:loadImage="@{postAndPhotoModel.photoModel.thumbnailUrl}" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -48,8 +50,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:text="@{postModel.title}"
-                    android:textSize="18sp"
+                    android:text="@{postAndPhotoModel.postModel.title}"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textStyle="bold" />
 
                 <TextView
@@ -57,7 +61,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text = "@string/body_test_text"
-                    android:text="@{postModel.body}" />
+                    android:text="@{postAndPhotoModel.postModel.body}"
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
             </LinearLayout>
         </LinearLayout>
 
