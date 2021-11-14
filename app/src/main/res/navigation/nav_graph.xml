@@ -18,5 +18,9 @@
         android:id="@+id/postDetailsFragment"
         android:name="com.citizenme.socialmediaapp.view.fragment.PostDetailsFragment"
         android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" />
+        tools:layout="@layout/fragment_post_details" >
+        <argument
+            android:name="post_uid"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -8,14 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.fragment.HomeFragment">
+        tools:context=".view.fragment.HomeFragment"
+        android:background="@color/bg_color">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:text="@string/home_posts_title" />
 
         <androidx.recyclerview.widget.RecyclerView

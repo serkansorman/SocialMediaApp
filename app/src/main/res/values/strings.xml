@@ -3,4 +3,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_posts_title">POSTS</string>
     <string name="post_details_comments_title">COMMENTS</string>
+    <string name="body_test_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat sodales magna at fermentum. Fusce convallis, turpis eu ultrices mollis.</string>
 </resources>
