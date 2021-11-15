@@ -1,23 +1,23 @@
 package com.citizenme.socialmediaapp.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.citizenme.socialmediaapp.R
 import com.citizenme.socialmediaapp.adapter.CommentsAdapter
 import com.citizenme.socialmediaapp.databinding.FragmentPostDetailsBinding
-import com.citizenme.socialmediaapp.model.CommentModel
-import com.citizenme.socialmediaapp.model.PhotoModel
+import com.citizenme.socialmediaapp.utils.ViewState
 import com.citizenme.socialmediaapp.viewmodel.PostDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostDetailsFragment : Fragment() {
+class PostDetailsFragment : BaseFragment() {
 
-    private lateinit var binding : FragmentPostDetailsBinding
+    private lateinit var binding: FragmentPostDetailsBinding
     private lateinit var commentsAdapter: CommentsAdapter
     private val postDetailsViewModel by viewModels<PostDetailsViewModel>()
 
@@ -35,21 +35,50 @@ class PostDetailsFragment : Fragment() {
         commentsAdapter = CommentsAdapter(mutableListOf())
         binding.commentList.adapter = commentsAdapter
 
-        arguments?.let {
-            val postDetails = PostDetailsFragmentArgs.fromBundle(it).postDetails
-            binding.postAndPhotoModel = postDetails
-            postDetails.postModel?.postId?.let { id -> postDetailsViewModel.getComments(id) }
-        }
-
+        getPosDetails()
+        observePostDetails()
         observeComments()
-
-
+        observeViewState()
+        onErrorRefreshClick()
     }
 
-    private fun observeComments(){
-        postDetailsViewModel.commentList.observe(viewLifecycleOwner,{
+    private fun getPosDetails(){
+        arguments?.let {
+            postDetailsViewModel.postDetails.value = PostDetailsFragmentArgs
+                .fromBundle(it)
+                .postDetails
+        }
+    }
+
+    private fun observeComments() {
+        postDetailsViewModel.commentList.observe(viewLifecycleOwner, {
             commentsAdapter.updateCommentList(it)
         })
+    }
+
+    private fun observePostDetails() {
+        postDetailsViewModel.postDetails.observe(viewLifecycleOwner, {
+            binding.postAndPhotoModel = it
+            it.postModel?.postId?.let { id -> postDetailsViewModel.getComments(id) }
+        })
+    }
+
+     override fun observeViewState() {
+        postDetailsViewModel.viewState.observe(viewLifecycleOwner, {
+            binding.commentList.isVisible = it is ViewState.Success
+            binding.loading.isVisible = it is ViewState.Loading
+            binding.error.layout.isVisible = it is ViewState.Error
+        })
+    }
+
+     override fun onErrorRefreshClick() {
+        binding.error.refreshButton.setOnClickListener {
+            postDetailsViewModel.postDetails.value?.postModel?.let { postModel ->
+                postDetailsViewModel.getComments(
+                    postModel.postId
+                )
+            }
+        }
     }
 
 }

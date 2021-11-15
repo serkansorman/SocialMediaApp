@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="postAndPhotoModel"
             type="com.citizenme.socialmediaapp.model.PostAndPhotoModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,9 +32,9 @@
                     android:id="@+id/post_details_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:loadImage="@{postAndPhotoModel.photoModel.url}"
                     android:scaleType="fitXY"
-                    app:shapeAppearanceOverlay="@style/roundedImageView"
-                    android:loadImage="@{postAndPhotoModel.photoModel.url}" />
+                    app:shapeAppearanceOverlay="@style/roundedImageView" />
 
                 <TextView
                     android:id="@+id/post_details_title_tv"
@@ -40,37 +42,59 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|bottom"
                     android:layout_margin="8dp"
-                    android:text="@{postAndPhotoModel.postModel.title}"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:maxLines="1"
                     android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{postAndPhotoModel.postModel.title}"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
 
             </FrameLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
-                android:orientation="vertical">
+                android:layout_weight="5">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/post_details_comments_title"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/comment_list"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/post_details_comments_title"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/comment_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="12dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/loading"
+                    layout="@layout/loading_layout" />
+
+                <include
+                    android:id="@+id/error"
+                    layout="@layout/error_layout"
+                    android:visibility="gone" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

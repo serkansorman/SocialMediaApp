@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,11 +13,12 @@ import com.citizenme.socialmediaapp.adapter.PostsAdapter
 import com.citizenme.socialmediaapp.databinding.FragmentHomeBinding
 import com.citizenme.socialmediaapp.listener.PostClickListener
 import com.citizenme.socialmediaapp.model.PostAndPhotoModel
+import com.citizenme.socialmediaapp.utils.ViewState
 import com.citizenme.socialmediaapp.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), PostClickListener {
+class HomeFragment : BaseFragment(), PostClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel by viewModels<HomeViewModel>()
@@ -38,6 +40,8 @@ class HomeFragment : Fragment(), PostClickListener {
 
         homeViewModel.getAllPosts()
         observePosts()
+        observeViewState()
+        onErrorRefreshClick()
 
     }
 
@@ -53,5 +57,19 @@ class HomeFragment : Fragment(), PostClickListener {
         })
     }
 
+    override fun observeViewState(){
+        homeViewModel.viewState.observe(viewLifecycleOwner,{
+            binding.homeLayout.isVisible = it is ViewState.Success
+            binding.loading.isVisible = it is ViewState.Loading
+            binding.error.layout.isVisible = it is ViewState.Error
+
+        })
+    }
+
+    override fun onErrorRefreshClick(){
+        binding.error.refreshButton.setOnClickListener{
+            homeViewModel.getAllPosts()
+        }
+    }
 
 }
