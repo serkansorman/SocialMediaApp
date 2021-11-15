@@ -19,16 +19,17 @@ class PostDetailsViewModel @Inject constructor(private val postRepository: PostR
     val commentList = MutableLiveData<MutableList<CommentModel>>()
     val postDetails = MutableLiveData<PostAndPhotoModel>()
 
-    fun getComments(postId : Int) {
+    fun getComments(postId: Int) {
         viewState.postValue(ViewState.Loading<CommentModel>())
         viewModelScope.launch(Dispatchers.IO) {
             val commentResponse = postRepository.getComments(postId)
-            withContext(Dispatchers.Main){
-                if(commentResponse.isSuccessful){
-                    commentList.postValue(commentResponse.body())
-                    viewState.postValue(ViewState.Success(commentResponse.body()))
-                }else{
-                    viewState.postValue(ViewState.Error<CommentModel>(commentResponse.errorBody().toString()))
+            withContext(Dispatchers.Main) {
+                if (commentResponse.isSuccessful) {
+                    commentList.value = commentResponse.body()
+                    viewState.value = ViewState.Success(commentResponse.body())
+                } else {
+                    viewState.value =
+                        ViewState.Error<CommentModel>(commentResponse.errorBody().toString())
                 }
             }
         }

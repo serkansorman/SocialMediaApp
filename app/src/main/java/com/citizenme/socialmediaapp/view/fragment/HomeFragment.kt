@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.citizenme.socialmediaapp.R
 import com.citizenme.socialmediaapp.adapter.PostsAdapter
 import com.citizenme.socialmediaapp.databinding.FragmentHomeBinding
@@ -18,7 +18,7 @@ import com.citizenme.socialmediaapp.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment(), PostClickListener {
+class HomeFragment : BaseFragment(), PostClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel by viewModels<HomeViewModel>()
@@ -35,6 +35,7 @@ class HomeFragment : BaseFragment(), PostClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentHomeBinding.bind(view)
+        binding.swipeRefreshLayout.setOnRefreshListener(this)
         postsAdapter = PostsAdapter(mutableListOf(), this)
         binding.postList.adapter = postsAdapter
 
@@ -42,6 +43,7 @@ class HomeFragment : BaseFragment(), PostClickListener {
         observePosts()
         observeViewState()
         onErrorRefreshClick()
+
 
     }
 
@@ -57,8 +59,8 @@ class HomeFragment : BaseFragment(), PostClickListener {
         })
     }
 
-    override fun observeViewState(){
-        homeViewModel.viewState.observe(viewLifecycleOwner,{
+    override fun observeViewState() {
+        homeViewModel.viewState.observe(viewLifecycleOwner, {
             binding.homeLayout.isVisible = it is ViewState.Success
             binding.loading.isVisible = it is ViewState.Loading
             binding.error.layout.isVisible = it is ViewState.Error
@@ -66,10 +68,15 @@ class HomeFragment : BaseFragment(), PostClickListener {
         })
     }
 
-    override fun onErrorRefreshClick(){
-        binding.error.refreshButton.setOnClickListener{
+    override fun onErrorRefreshClick() {
+        binding.error.refreshButton.setOnClickListener {
             homeViewModel.getAllPosts()
         }
+    }
+
+    override fun onRefresh() {
+        homeViewModel.getAllPosts()
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
 }
