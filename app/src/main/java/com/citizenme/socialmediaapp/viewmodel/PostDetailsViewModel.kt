@@ -2,10 +2,10 @@ package com.citizenme.socialmediaapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.citizenme.socialmediaapp.api.repository.PostRepository
+import com.citizenme.socialmediaapp.remote.repository.PostRepository
 import com.citizenme.socialmediaapp.model.CommentModel
 import com.citizenme.socialmediaapp.model.PostAndPhotoModel
-import com.citizenme.socialmediaapp.utils.ViewState
+import com.citizenme.socialmediaapp.core.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,14 +13,15 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class PostDetailsViewModel @Inject constructor(private val postRepository: PostRepository) :
-    BaseViewModel() {
+class PostDetailsViewModel @Inject constructor(
+    private val postRepository: PostRepository,
+) : BaseViewModel() {
 
     val commentList = MutableLiveData<MutableList<CommentModel>>()
     val postDetails = MutableLiveData<PostAndPhotoModel>()
 
     fun getComments(postId: Int) {
-        viewState.postValue(ViewState.Loading<CommentModel>())
+        viewState.value = ViewState.Loading<CommentModel>()
         viewModelScope.launch(Dispatchers.IO) {
             val commentResponse = postRepository.getComments(postId)
             withContext(Dispatchers.Main) {

@@ -13,7 +13,7 @@ import com.citizenme.socialmediaapp.adapter.PostsAdapter
 import com.citizenme.socialmediaapp.databinding.FragmentHomeBinding
 import com.citizenme.socialmediaapp.listener.PostClickListener
 import com.citizenme.socialmediaapp.model.PostAndPhotoModel
-import com.citizenme.socialmediaapp.utils.ViewState
+import com.citizenme.socialmediaapp.core.ViewState
 import com.citizenme.socialmediaapp.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -70,12 +70,12 @@ class HomeFragment : BaseFragment(), PostClickListener, SwipeRefreshLayout.OnRef
 
     override fun onErrorRefreshClick() {
         binding.error.refreshButton.setOnClickListener {
-            homeViewModel.getAllPosts()
+            homeViewModel.getAllPostsFromApi()
         }
     }
 
     override fun onRefresh() {
-        homeViewModel.getAllPosts()
+        homeViewModel.getAllPostsFromApi()
         binding.swipeRefreshLayout.isRefreshing = false
     }
 

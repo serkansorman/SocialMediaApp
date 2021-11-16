@@ -79,4 +79,12 @@ dependencies {
 
     //Material components
     implementation 'com.google.android.material:material:1.5.0-alpha05'
+
+    //Room
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //Preference manager
+    implementation 'androidx.preference:preference-ktx:1.1.1'
+
 }

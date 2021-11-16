@@ -1,4 +1,4 @@
-package com.citizenme.socialmediaapp.api.service
+package com.citizenme.socialmediaapp.remote.service
 
 import com.citizenme.socialmediaapp.model.CommentModel
 import com.citizenme.socialmediaapp.model.PostModel

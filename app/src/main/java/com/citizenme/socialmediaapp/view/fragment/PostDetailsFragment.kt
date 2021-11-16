@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.citizenme.socialmediaapp.R
 import com.citizenme.socialmediaapp.adapter.CommentsAdapter
 import com.citizenme.socialmediaapp.databinding.FragmentPostDetailsBinding
-import com.citizenme.socialmediaapp.utils.ViewState
+import com.citizenme.socialmediaapp.core.ViewState
 import com.citizenme.socialmediaapp.viewmodel.PostDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

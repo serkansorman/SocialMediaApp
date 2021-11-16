@@ -1,4 +1,4 @@
-package com.citizenme.socialmediaapp.utils
+package com.citizenme.socialmediaapp.core
 
 sealed class ViewState<T> {
     class Success<T>(val data: T) : ViewState<T>()
