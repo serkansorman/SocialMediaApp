@@ -20,8 +20,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="@string/home_posts_title"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="24sp"
+                android:textStyle="bold|italic" />
 
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

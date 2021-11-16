@@ -39,7 +39,7 @@ class PostDetailsViewModel @Inject constructor(
 
     fun getCommentsFromApi(postId: Int) {
         viewState.value = ViewState.Loading<CommentModel>()
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val commentResponse = postRepository.getComments(postId)
             withContext(Dispatchers.Main) {
                 if (commentResponse.isSuccessful) {

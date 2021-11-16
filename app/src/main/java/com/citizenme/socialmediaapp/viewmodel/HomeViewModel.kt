@@ -14,15 +14,11 @@ import com.citizenme.socialmediaapp.mapper.toPostModel
 import com.citizenme.socialmediaapp.model.PhotoModel
 import com.citizenme.socialmediaapp.model.PostAndPhotoModel
 import com.citizenme.socialmediaapp.model.PostModel
-import com.citizenme.socialmediaapp.utils.*
 import com.citizenme.socialmediaapp.utils.CustomSharedPreferences.Companion.POST_LIST_UPDATE_TIME
+import com.citizenme.socialmediaapp.utils.needsRefreshFromApi
 import com.citizenme.socialmediaapp.view.state.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -85,8 +81,8 @@ class HomeViewModel @Inject constructor(
     suspend fun getPostsAndPhotos() =
 
         coroutineScope {
-            val deferredPosts = async { postRepository.getPosts() }
-            val deferredPhotos = async { photoRepository.getPhotos() }
+            val deferredPosts = async(Dispatchers.IO) { postRepository.getPosts() }
+            val deferredPhotos = async(Dispatchers.IO) { photoRepository.getPhotos() }
 
             val photoResponse = try {
                 deferredPhotos.await()
