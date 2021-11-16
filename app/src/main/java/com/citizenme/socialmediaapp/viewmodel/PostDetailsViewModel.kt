@@ -29,7 +29,8 @@ class PostDetailsViewModel @Inject constructor(
     val postDetails = MutableLiveData<PostAndPhotoModel>()
 
     fun getComments(postId: Int) {
-         if (needsRefreshFromApi(customPrefs.getLastUpdateTime("${COMMENT_LIST_UPDATE_TIME}_${postId}"))) {
+         if (needsRefreshFromApi(customPrefs.getLastUpdateTime(
+                 "${COMMENT_LIST_UPDATE_TIME}_${postId}"))) {
              getCommentsFromApi(postId)
          } else {
              getCommentsFromLocal(postId)
@@ -51,9 +52,6 @@ class PostDetailsViewModel @Inject constructor(
                 }
             }
         }
-
-        println("From Api")
-
     }
 
     private fun getCommentsFromLocal(postId: Int) {
@@ -67,9 +65,6 @@ class PostDetailsViewModel @Inject constructor(
                 viewState.value = ViewState.Success(commentModelList)
             }
         }
-
-        println("From Local")
-
     }
 
     private fun storeCommentsInLocal(commentList: List<CommentModel>,postId: Int) {
