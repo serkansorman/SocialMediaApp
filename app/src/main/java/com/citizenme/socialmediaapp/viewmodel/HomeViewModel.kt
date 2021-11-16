@@ -48,10 +48,11 @@ class HomeViewModel @Inject constructor(
 
     fun getAllPostsFromApi() {
         viewState.value = ViewState.Loading<PostAndPhotoModel>()
-        viewModelScope.launch(Dispatchers.IO) {
-            produceCombinationFromPostAndPhotos().collect {
-                postAndPhotoModels.postValue(it)
-                viewState.postValue(ViewState.Success(it))
+        viewModelScope.launch {
+            val postAndPhotos = getPostsAndPhotos()
+            withContext(Dispatchers.Main) {
+                postAndPhotoModels.value = postAndPhotos
+                viewState.value = ViewState.Success(postAndPhotos)
             }
         }
     }
@@ -67,8 +68,6 @@ class HomeViewModel @Inject constructor(
                 viewState.value = ViewState.Success(postAndPhotoModels.value)
             }
         }
-
-
     }
 
     private fun storePostAndPhotosInLocal(postList: List<PostModel>, photoList: List<PhotoModel>) {
@@ -76,22 +75,14 @@ class HomeViewModel @Inject constructor(
             val postEntityList = postList.map { it.toPostEntity() }
             val photoEntityList = photoList.map { it.toPhotoEntity() }
 
-            localPostRepository.insertPosts(*postEntityList.toTypedArray())
-            localPhotoRepository.insertPhotos(*photoEntityList.toTypedArray())
+            launch { localPostRepository.insertPosts(*postEntityList.toTypedArray()) }
+            launch { localPhotoRepository.insertPhotos(*photoEntityList.toTypedArray()) }
         }
 
         customPrefs.saveLastUpdateTime(System.nanoTime(), POST_LIST_UPDATE_TIME)
     }
 
-
-    private fun produceCombinationFromPostAndPhotos() =
-        flow {
-            emit(getPostsAndPhotos())
-        }.catch { exception ->
-            viewState.postValue(ViewState.Error<PostAndPhotoModel>(exception.message))
-        }.flowOn(Dispatchers.IO)
-
-    private suspend fun getPostsAndPhotos() =
+    suspend fun getPostsAndPhotos() =
 
         coroutineScope {
             val deferredPosts = async { postRepository.getPosts() }
@@ -112,13 +103,13 @@ class HomeViewModel @Inject constructor(
             val postList = postResponse as Response<*>
             val photoList = photoResponse as Response<*>
 
-            launch(Dispatchers.IO) {
-                storePostAndPhotosInLocal(
-                    postList.body() as List<PostModel>,
-                    photoList.body() as List<PhotoModel>
-                )
-            }
+            @Suppress("UNCHECKED_CAST")
+            storePostAndPhotosInLocal(
+                postList.body() as List<PostModel>,
+                photoList.body() as List<PhotoModel>
+            )
 
+            @Suppress("UNCHECKED_CAST")
             mergePostAndPhotos(
                 postList.body() as List<PostModel>,
                 photoList.body() as List<PhotoModel>
