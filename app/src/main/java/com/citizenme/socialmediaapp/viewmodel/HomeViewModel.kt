@@ -2,14 +2,18 @@ package com.citizenme.socialmediaapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.citizenme.socialmediaapp.remote.repository.PhotoRepository
-import com.citizenme.socialmediaapp.remote.repository.PostRepository
-import com.citizenme.socialmediaapp.core.ViewState
-import com.citizenme.socialmediaapp.local.repository.LocalPhotoRepository
-import com.citizenme.socialmediaapp.local.repository.LocalPostRepository
+import com.citizenme.socialmediaapp.data.remote.repository.PhotoRepository
+import com.citizenme.socialmediaapp.data.remote.repository.PostRepository
+import com.citizenme.socialmediaapp.view.state.ViewState
+import com.citizenme.socialmediaapp.data.local.repository.LocalPhotoRepository
+import com.citizenme.socialmediaapp.data.local.repository.LocalPostRepository
 import com.citizenme.socialmediaapp.model.PhotoModel
 import com.citizenme.socialmediaapp.model.PostAndPhotoModel
 import com.citizenme.socialmediaapp.model.PostModel
+import com.citizenme.socialmediaapp.mapper.toPhotoEntity
+import com.citizenme.socialmediaapp.mapper.toPhotoModel
+import com.citizenme.socialmediaapp.mapper.toPostEntity
+import com.citizenme.socialmediaapp.mapper.toPostModel
 import com.citizenme.socialmediaapp.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*

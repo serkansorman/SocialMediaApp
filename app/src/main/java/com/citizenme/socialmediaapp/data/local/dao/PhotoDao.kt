@@ -1,10 +1,10 @@
-package com.citizenme.socialmediaapp.local.dao
+package com.citizenme.socialmediaapp.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.citizenme.socialmediaapp.local.entity.PhotoEntity
+import com.citizenme.socialmediaapp.data.local.entity.PhotoEntity
 
 @Dao
 interface PhotoDao {

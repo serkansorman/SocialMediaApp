@@ -1,4 +1,4 @@
-package com.citizenme.socialmediaapp.local.entity
+package com.citizenme.socialmediaapp.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

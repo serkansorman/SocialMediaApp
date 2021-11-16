@@ -1,4 +1,4 @@
-package com.citizenme.socialmediaapp.core
+package com.citizenme.socialmediaapp.utils
 
 import android.content.Context
 import android.content.SharedPreferences

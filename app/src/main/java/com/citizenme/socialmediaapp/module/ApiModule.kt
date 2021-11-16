@@ -1,7 +1,7 @@
 package com.citizenme.socialmediaapp.module
 
-import com.citizenme.socialmediaapp.remote.service.PhotoService
-import com.citizenme.socialmediaapp.remote.service.PostService
+import com.citizenme.socialmediaapp.data.remote.service.PhotoService
+import com.citizenme.socialmediaapp.data.remote.service.PostService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides

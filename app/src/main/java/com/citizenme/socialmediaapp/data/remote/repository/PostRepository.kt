@@ -1,6 +1,6 @@
-package com.citizenme.socialmediaapp.remote.repository
+package com.citizenme.socialmediaapp.data.remote.repository
 
-import com.citizenme.socialmediaapp.remote.service.PostService
+import com.citizenme.socialmediaapp.data.remote.service.PostService
 import javax.inject.Inject
 
 class PostRepository @Inject constructor(

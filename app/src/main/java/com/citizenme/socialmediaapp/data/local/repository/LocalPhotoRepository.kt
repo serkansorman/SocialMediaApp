@@ -1,7 +1,7 @@
-package com.citizenme.socialmediaapp.local.repository
+package com.citizenme.socialmediaapp.data.local.repository
 
-import com.citizenme.socialmediaapp.local.dao.PhotoDao
-import com.citizenme.socialmediaapp.local.entity.PhotoEntity
+import com.citizenme.socialmediaapp.data.local.dao.PhotoDao
+import com.citizenme.socialmediaapp.data.local.entity.PhotoEntity
 import javax.inject.Inject
 
 class LocalPhotoRepository @Inject constructor(private val photoDao: PhotoDao) {

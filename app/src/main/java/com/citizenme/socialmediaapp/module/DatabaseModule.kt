@@ -3,10 +3,10 @@ package com.citizenme.socialmediaapp.module
 import android.content.Context
 import androidx.room.Room
 import com.citizenme.socialmediaapp.MainApplication
-import com.citizenme.socialmediaapp.local.dao.CommentDao
-import com.citizenme.socialmediaapp.local.dao.PhotoDao
-import com.citizenme.socialmediaapp.local.dao.PostDao
-import com.citizenme.socialmediaapp.local.database.PostDatabase
+import com.citizenme.socialmediaapp.data.local.dao.CommentDao
+import com.citizenme.socialmediaapp.data.local.dao.PhotoDao
+import com.citizenme.socialmediaapp.data.local.dao.PostDao
+import com.citizenme.socialmediaapp.data.local.database.PostDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

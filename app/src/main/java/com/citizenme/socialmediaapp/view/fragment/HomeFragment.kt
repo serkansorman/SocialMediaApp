@@ -13,7 +13,7 @@ import com.citizenme.socialmediaapp.adapter.PostsAdapter
 import com.citizenme.socialmediaapp.databinding.FragmentHomeBinding
 import com.citizenme.socialmediaapp.listener.PostClickListener
 import com.citizenme.socialmediaapp.model.PostAndPhotoModel
-import com.citizenme.socialmediaapp.core.ViewState
+import com.citizenme.socialmediaapp.view.state.ViewState
 import com.citizenme.socialmediaapp.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

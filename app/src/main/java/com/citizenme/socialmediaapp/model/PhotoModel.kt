@@ -1,7 +1,6 @@
 package com.citizenme.socialmediaapp.model
 
 import android.os.Parcelable
-import com.citizenme.socialmediaapp.local.entity.PhotoEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

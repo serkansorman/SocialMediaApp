@@ -1,7 +1,7 @@
-package com.citizenme.socialmediaapp.local.repository
+package com.citizenme.socialmediaapp.data.local.repository
 
-import com.citizenme.socialmediaapp.local.dao.PostDao
-import com.citizenme.socialmediaapp.local.entity.PostEntity
+import com.citizenme.socialmediaapp.data.local.dao.PostDao
+import com.citizenme.socialmediaapp.data.local.entity.PostEntity
 import javax.inject.Inject
 
 class LocalPostRepository @Inject constructor(private val postDao: PostDao) {

@@ -1,4 +1,4 @@
-package com.citizenme.socialmediaapp.remote.service
+package com.citizenme.socialmediaapp.data.remote.service
 
 import com.citizenme.socialmediaapp.model.PhotoModel
 import retrofit2.Response

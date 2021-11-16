@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.citizenme.socialmediaapp.R
 import com.citizenme.socialmediaapp.adapter.CommentsAdapter
 import com.citizenme.socialmediaapp.databinding.FragmentPostDetailsBinding
-import com.citizenme.socialmediaapp.core.ViewState
+import com.citizenme.socialmediaapp.view.state.ViewState
 import com.citizenme.socialmediaapp.viewmodel.PostDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
