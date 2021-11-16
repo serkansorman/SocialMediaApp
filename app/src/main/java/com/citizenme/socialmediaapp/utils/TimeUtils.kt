@@ -1,10 +1,8 @@
 package com.citizenme.socialmediaapp.utils
 
 
-private const val tenMinutesRefreshTime = 10 * 60 * 1000 * 1000 * 1000L
-val customPreferences = CustomSharedPreferences()
+private const val oneMinuteRefreshTime = 60 * 1000 * 1000 * 1000L
 
-fun needsRefreshFromApi(lastUpdateTime: Long? = customPreferences.getLastUpdateTime()) =
+fun needsRefreshFromApi(lastUpdateTime : Long?) =
     lastUpdateTime != null &&
-    lastUpdateTime != 0L &&
-    System.nanoTime() - lastUpdateTime > tenMinutesRefreshTime
+            System.nanoTime() - lastUpdateTime > oneMinuteRefreshTime

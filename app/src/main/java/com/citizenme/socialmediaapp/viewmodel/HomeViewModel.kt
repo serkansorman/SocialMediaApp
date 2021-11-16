@@ -1,20 +1,22 @@
 package com.citizenme.socialmediaapp.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.citizenme.socialmediaapp.data.remote.repository.PhotoRepository
-import com.citizenme.socialmediaapp.data.remote.repository.PostRepository
-import com.citizenme.socialmediaapp.view.state.ViewState
 import com.citizenme.socialmediaapp.data.local.repository.LocalPhotoRepository
 import com.citizenme.socialmediaapp.data.local.repository.LocalPostRepository
-import com.citizenme.socialmediaapp.model.PhotoModel
-import com.citizenme.socialmediaapp.model.PostAndPhotoModel
-import com.citizenme.socialmediaapp.model.PostModel
+import com.citizenme.socialmediaapp.data.remote.repository.PhotoRepository
+import com.citizenme.socialmediaapp.data.remote.repository.PostRepository
 import com.citizenme.socialmediaapp.mapper.toPhotoEntity
 import com.citizenme.socialmediaapp.mapper.toPhotoModel
 import com.citizenme.socialmediaapp.mapper.toPostEntity
 import com.citizenme.socialmediaapp.mapper.toPostModel
+import com.citizenme.socialmediaapp.model.PhotoModel
+import com.citizenme.socialmediaapp.model.PostAndPhotoModel
+import com.citizenme.socialmediaapp.model.PostModel
 import com.citizenme.socialmediaapp.utils.*
+import com.citizenme.socialmediaapp.utils.CustomSharedPreferences.Companion.POST_LIST_UPDATE_TIME
+import com.citizenme.socialmediaapp.view.state.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
@@ -31,12 +33,13 @@ class HomeViewModel @Inject constructor(
     private val photoRepository: PhotoRepository,
     private val localPostRepository: LocalPostRepository,
     private val localPhotoRepository: LocalPhotoRepository,
-) : BaseViewModel() {
+    application: Application,
+) : BaseViewModel(application) {
 
     val postAndPhotoModels = MutableLiveData<List<PostAndPhotoModel>>()
 
     fun getAllPosts() {
-        if (needsRefreshFromApi()) {
+        if (needsRefreshFromApi(customPrefs.getLastUpdateTime(POST_LIST_UPDATE_TIME))) {
             getAllPostsFromApi()
         } else {
             getAllPostsFromLocal()
@@ -64,6 +67,8 @@ class HomeViewModel @Inject constructor(
                 viewState.value = ViewState.Success(postAndPhotoModels.value)
             }
         }
+
+
     }
 
     private fun storePostAndPhotosInLocal(postList: List<PostModel>, photoList: List<PhotoModel>) {
@@ -75,7 +80,7 @@ class HomeViewModel @Inject constructor(
             localPhotoRepository.insertPhotos(*photoEntityList.toTypedArray())
         }
 
-        customPreferences.saveLastUpdateTime(System.nanoTime())
+        customPrefs.saveLastUpdateTime(System.nanoTime(), POST_LIST_UPDATE_TIME)
     }
 
 

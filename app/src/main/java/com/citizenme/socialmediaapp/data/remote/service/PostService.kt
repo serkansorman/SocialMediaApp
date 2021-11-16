@@ -12,5 +12,5 @@ interface PostService {
     suspend fun getPosts(): Response<MutableList<PostModel>>
 
     @GET("/posts/{id}/comments")
-    suspend fun getComments(@Path("id") id: Int): Response<MutableList<CommentModel>>
+    suspend fun getComments(@Path("id") id: Int): Response<List<CommentModel>>
 }

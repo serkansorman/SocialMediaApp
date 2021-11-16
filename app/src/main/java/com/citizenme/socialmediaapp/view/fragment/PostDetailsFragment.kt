@@ -73,7 +73,7 @@ class PostDetailsFragment : BaseFragment() {
      override fun onErrorRefreshClick() {
         binding.error.refreshButton.setOnClickListener {
             postDetailsViewModel.postDetails.value?.postModel?.let { postModel ->
-                postDetailsViewModel.getComments(
+                postDetailsViewModel.getCommentsFromApi(
                     postModel.postId
                 )
             }

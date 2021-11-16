@@ -12,6 +12,6 @@ interface CommentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllComments(vararg commentEntities: CommentEntity)
 
-    @Query("SELECT * FROM comments")
-    suspend fun getAllComments(): MutableList<CommentEntity>
+    @Query("SELECT * FROM comments WHERE post_id =:postId")
+    suspend fun getComments(postId : Int): MutableList<CommentEntity>
 }

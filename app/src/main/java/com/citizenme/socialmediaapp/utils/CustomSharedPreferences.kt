@@ -5,11 +5,14 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
+
 class CustomSharedPreferences {
 
     companion object {
 
-        private const val PREFERENCES_TIME = "preferences_time"
+        const val POST_LIST_UPDATE_TIME = "post_list_update_time"
+        const val COMMENT_LIST_UPDATE_TIME = "comment_list_update_time"
+
         private var sharedPreferences: SharedPreferences? = null
 
         @Volatile
@@ -31,12 +34,12 @@ class CustomSharedPreferences {
 
     }
 
-    fun saveLastUpdateTime(time: Long) {
+    fun saveLastUpdateTime(time: Long, updatedListName: String) {
         sharedPreferences?.edit(commit = true) {
-            putLong(PREFERENCES_TIME, time)
+            putLong(updatedListName, time)
         }
     }
 
-    fun getLastUpdateTime() = sharedPreferences?.getLong(PREFERENCES_TIME, 0)
+    fun getLastUpdateTime(updatedListName: String) = sharedPreferences?.getLong(updatedListName, 0)
 
 }

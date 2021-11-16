@@ -29,7 +29,7 @@ class CommentsAdapter(private val commentList : MutableList<CommentModel>) : Rec
         return commentList.size
     }
 
-    fun updateCommentList(commentList: MutableList<CommentModel>){
+    fun updateCommentList(commentList: List<CommentModel>){
         this.commentList.clear()
         this.commentList.addAll(commentList)
         notifyDataSetChanged()

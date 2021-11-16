@@ -9,6 +9,7 @@ class LocalCommentRepository @Inject constructor(private val commentDao: Comment
     suspend fun insertComments(vararg commentEntities: CommentEntity) =
         commentDao.insertAllComments(*commentEntities)
 
-    suspend fun getComments(): MutableList<CommentEntity> = commentDao.getAllComments()
+    suspend fun getComments(postId: Int): MutableList<CommentEntity> =
+        commentDao.getComments(postId)
 
 }
